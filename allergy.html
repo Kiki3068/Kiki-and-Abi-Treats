@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Allergy Info | Kiki & Abi’s Treats</title>
+    <style>
+        :root { --orange: #FF8C00; --black: #1a1a1a; --grey: #f9f9f9; --border: #eeeeee; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; line-height: 1.6; background: #fff; }
+
+        /* Frozen Header (80px) */
+        nav { 
+            background: var(--black); 
+            height: 80px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 0 5%; 
+            position: sticky; 
+            top: 0; 
+            z-index: 2000; 
+        }
+        .logo { font-size: 1.5rem; font-weight: bold; color: white; text-decoration: none; }
+        .logo span { color: var(--orange); }
+        .nav-links a { color: white; text-decoration: none; margin-left: 25px; font-weight: 500; }
+        .nav-links a.active { border-bottom: 3px solid var(--orange); color: var(--orange); }
+
+        .container { max-width: 1100px; margin: 60px auto; padding: 0 20px; min-height: 70vh; }
+        h1 { text-align: center; margin-bottom: 10px; }
+        .subtitle { text-align: center; color: #666; margin-bottom: 50px; font-weight: 500; }
+
+        /* Allergy Grid */
+        .allergen-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+            gap: 20px; 
+        }
+        .allergen-card { 
+            background: var(--grey); 
+            padding: 25px; 
+            border-radius: 15px; 
+            border: 1px solid var(--border); 
+            transition: 0.3s;
+            border-left: 5px solid var(--orange);
+        }
+        .allergen-card:hover { border-color: var(--orange); transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        
+        .allergen-card h3 { 
+            margin: 0 0 10px 0; 
+            color: var(--black); 
+            font-size: 1.2rem; 
+        }
+        .allergen-card p { margin: 0; color: #444; font-size: 0.95rem; line-height: 1.4; }
+        
+        /* Trace Warning Style */
+        .trace-warning { border-left: 5px solid #888; background: #fffdf9; }
+        .trace-warning h3 { color: #555; }
+        .trace-warning p { color: #777; font-style: italic; }
+
+        footer { 
+            background: var(--black); 
+            color: white; 
+            text-align: center; 
+            padding: 30px; 
+            border-top: 3px solid var(--orange); 
+            margin-top: 80px; 
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="index.html" class="logo">KIKI & ABI’S <span>TREATS</span></a>
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="allergy.html" class="active">Allergy Info</a>
+        <a href="reviews.html">Reviews</a>
+        <a href="order.html">Menu</a>
+    </div>
+</nav>
+
+<div class="container">
+    <h1>Allergy Information</h1>
+    <p class="subtitle">Please note: While some allergens are not used as primary ingredients, they may be present in trace amounts due to our suppliers or shared production environments.</p>
+    
+    <div class="allergen-grid">
+        <div class="allergen-card">
+            <h3>Eggs</h3>
+            <p> Found in our egg rolls and the golden shine for all our pastries.</p>
+        </div>
+
+        <div class="allergen-card">
+            <h3>Fish</h3>
+            <p>Found in our fish rolls and in our hake/titus stews.</p>
+        </div>
+
+        <div class="allergen-card">
+            <h3>Crustaceans (Crayfish)</h3>
+            <p>Found in our Native meals.</p>
+        </div>
+
+        <div class="allergen-card">
+            <h3>Molluscs</h3>
+            <p>Found in some of our stews.</p>
+        </div>
+
+        <div class="allergen-card">
+            <h3>Gluten / Wheat</h3>
+            <p>Found in all pastries and in pasta.</p>
+        </div>
+
+        <div class="allergen-card">
+            <h3>Peanuts</h3>
+            <p>Found in our Suya Wings and all meals with suya spice.</p>
+        </div>
+
+        <div class="allergen-card">
+            <h3>Milk</h3>
+            <p>Found in some of our pastries.</p>
+        </div>
+
+        <div class="allergen-card trace-warning">
+            <h3>Soya Beans</h3>
+            <p>May be found in traces or ingredients of our food.</p>
+        </div>
+
+        <div class="allergen-card trace-warning">
+            <h3>Celery</h3>
+            <p>May be found in traces or ingredients of our food.</p>
+        </div>
+
+        <div class="allergen-card trace-warning">
+            <h3>Sulphur Dioxide / Sulphites</h3>
+            <p>May be found in traces or ingredients of our food.</p>
+        </div>
+
+        <div class="allergen-card trace-warning">
+            <h3>Sesame Seeds</h3>
+            <p>May be found in traces or ingredients of our food.</p>
+        </div>
+
+        <div class="allergen-card trace-warning">
+            <h3>Lupin</h3>
+            <p>May be found in traces or ingredients of our food.</p>
+        </div>
+
+        <div class="allergen-card trace-warning">
+            <h3>Mustard</h3>
+            <p>May be found in traces or ingredients of our food.</p>
+        </div>
+
+        <div class="allergen-card trace-warning">
+            <h3>Nuts (Tree Nuts)</h3>
+            <p>May be found in traces or ingredients of our food.</p>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2026 Kiki & Abi’s Treats. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

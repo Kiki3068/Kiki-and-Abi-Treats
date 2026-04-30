@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | Kiki & Abi’s Treats</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root { --orange: #FF8C00; --black: #1a1a1a; --deep-black: #000000; --white: #ffffff; --grey: #f4f4f4; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; background: var(--white); color: #333; }
+        
+        /* Frozen Header (80px) */
+        nav { background: var(--black); height: 80px; display: flex; justify-content: space-between; align-items: center; padding: 0 5%; position: sticky; top: 0; z-index: 2000; }
+        .logo { font-size: 1.5rem; font-weight: bold; color: white; text-decoration: none; }
+        .logo span { color: var(--orange); }
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a { color: white; text-decoration: none; font-weight: 500; padding: 8px 0; border-bottom: 3px solid transparent; }
+        .nav-links a.active { border-bottom: 3px solid var(--orange); color: var(--orange); }
+
+        /* Hero Section with Black Background */
+        .hero { 
+            height: calc(100vh - 80px); 
+            background: var(--deep-black); /* Changed to Black */
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center; 
+            color: white; 
+            text-align: center; 
+            padding: 0 20px; 
+        }
+        .hero h1 { font-size: 3.5rem; margin-bottom: 10px; color: var(--white); }
+        .hero h1 span { color: var(--orange); }
+        .hero p { font-size: 1.2rem; max-width: 600px; margin-bottom: 30px; color: #ccc; }
+        
+        .cta-btn { 
+            background: var(--orange); 
+            color: white; 
+            padding: 15px 40px; 
+            text-decoration: none; 
+            font-weight: bold; 
+            border-radius: 50px; 
+            transition: 0.3s; 
+        }
+        .cta-btn:hover { background: #e67e00; transform: scale(1.05); }
+
+        /* Social Media Section */
+        .social-footer { background: var(--black); padding: 60px 20px; text-align: center; color: white; }
+        .social-links { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; margin-top: 30px; }
+        .social-item { text-decoration: none; color: white; display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 1.1rem; }
+        .fa-instagram { color: #E1306C; } 
+        .fa-tiktok { color: #fff; } 
+        .fa-whatsapp { color: #25D366; }
+
+        footer { background: var(--deep-black); color: white; text-align: center; padding: 30px; border-top: 3px solid var(--orange); }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="index.html" class="logo">KIKI & ABI’S <span>TREATS</span></a>
+    <div class="nav-links">
+        <a href="index.html" class="active">Home</a>
+        <a href="about.html">About</a>
+        <a href="allergy.html">Allergy Info</a>
+        <a href="reviews.html">Reviews</a>
+        <a href="order.html">Menu</a>
+    </div>
+</nav>
+
+<section class="hero">
+    <h1>Taste the <span>Tradition</span></h1>
+    <p>Authentic Nigerian flavors, handcrafted pastries, and hearty meals delivered straight to your door.</p>
+    <a href="order.html" class="cta-btn">View Menu & Order</a>
+</section>
+
+<section class="social-footer">
+    <h3>Follow Our Kitchen Journey</h3>
+    <div class="social-links">
+        <a href="https://wa.me/447882560270" target="_blank" class="social-item"><i class="fab fa-whatsapp"></i> 07882 560270</a>
+        <a href="https://instagram.com/kikiandabistreats" target="_blank" class="social-item"><i class="fab fa-instagram"></i> kikis_abistreats</a>
+        <a href="https://tiktok.com/@kikiandabistreats" target="_blank" class="social-item"><i class="fab fa-tiktok"></i> kikis_abis_treats</a>
+    </div>
+</section>
+
+<footer>
+    <p>&copy; 2026 Kiki & Abi’s Treats. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

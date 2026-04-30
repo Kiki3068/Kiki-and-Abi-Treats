@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reviews | Kiki & Abi’s Treats</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root { --orange: #FF8C00; --black: #1a1a1a; --grey: #f4f4f4; --border: #eeeeee; --beige: #f5f5dc; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; background: #fff; color: #333; }
+
+        /* Frozen Header (80px) */
+        nav { background: var(--black); height: 80px; display: flex; justify-content: space-between; align-items: center; padding: 0 5%; position: sticky; top: 0; z-index: 2000; }
+        .logo { font-size: 1.5rem; font-weight: bold; color: white; text-decoration: none; }
+        .logo span { color: var(--orange); }
+        .nav-links a { color: white; text-decoration: none; margin-left: 25px; font-weight: 500; }
+        .nav-links a.active { border-bottom: 3px solid var(--orange); color: var(--orange); }
+
+        .container { max-width: 800px; margin: 50px auto; padding: 0 20px; min-height: 70vh; }
+        h1 { text-align: center; margin-bottom: 40px; }
+
+        /* Review Form */
+        .review-form { background: var(--grey); padding: 30px; border-radius: 15px; margin-bottom: 50px; }
+        .star-rating { font-size: 1.8rem; margin-bottom: 15px; cursor: pointer; color: #ccc; }
+        .star-rating .fa-star.active { color: #FFD700; }
+        
+        input, textarea { width: 100%; padding: 12px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-family: inherit; }
+        textarea { height: 150px; resize: none; margin-bottom: 5px; }
+
+        .char-count { text-align: right; font-size: 0.85rem; color: #777; margin-bottom: 15px; }
+        .char-count span.limit-reached { color: red; font-weight: bold; }
+
+        .submit-btn { 
+            background: var(--orange); color: white; border: none; padding: 12px 30px; 
+            border-radius: 30px; font-weight: bold; cursor: pointer; transition: 0.3s;
+        }
+        .submit-btn:disabled { background: var(--beige); color: #999; cursor: not-allowed; border: 1px solid #ddd; }
+
+        /* Review List */
+        .review-card { border: 1px solid var(--border); padding: 20px; border-radius: 12px; margin-bottom: 20px; position: relative; }
+        .review-card h4 { margin: 0 0 5px 0; }
+        .review-card .stars { color: #FFD700; margin-bottom: 10px; }
+        .review-card .actions { margin-top: 15px; display: flex; gap: 15px; border-top: 1px solid #eee; padding-top: 10px; }
+        .action-btn { background: none; border: none; cursor: pointer; font-size: 0.9rem; font-weight: bold; padding: 0; }
+        .edit-btn { color: #4a90e2; }
+        .delete-btn { color: #d9534f; }
+
+        footer { background: var(--black); color: white; text-align: center; padding: 30px; border-top: 3px solid var(--orange); margin-top: 60px; }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="index.html" class="logo">KIKI & ABI’S <span>TREATS</span></a>
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="allergy.html">Allergy Info</a>
+        <a href="reviews.html" class="active">Reviews</a>
+        <a href="order.html">Menu</a>
+    </div>
+</nav>
+
+<div class="container">
+    <h1>Customer Reviews</h1>
+    
+    <div class="review-form">
+        <h3>Leave a Review</h3>
+        <div class="star-rating" id="star-input">
+            <i class="fas fa-star" data-val="1"></i>
+            <i class="fas fa-star" data-val="2"></i>
+            <i class="fas fa-star" data-val="3"></i>
+            <i class="fas fa-star" data-val="4"></i>
+            <i class="fas fa-star" data-val="5"></i>
+        </div>
+        <input type="text" id="reviewerName" placeholder="Your Name">
+        <textarea id="reviewText" placeholder="Tell us what you enjoyed..." oninput="updateReviewState()"></textarea>
+        <div class="char-count" id="charCount">0/<span id="limit-text">1500</span></div>
+        <button class="submit-btn" id="postBtn" onclick="saveReview()">Post Review</button>
+    </div>
+
+    <div id="review-list"></div>
+</div>
+
+<footer><p>&copy; 2026 Kiki & Abi’s Treats. All rights reserved.</p></footer>
+
+<script>
+    let currentRating = 0;
+    let editingId = null;
+
+    document.querySelectorAll('#star-input i').forEach(star => {
+        star.onclick = () => {
+            currentRating = parseInt(star.dataset.val);
+            document.querySelectorAll('#star-input i').forEach(s => {
+                s.classList.toggle('active', parseInt(s.dataset.val) <= currentRating);
+            });
+        };
+    });
+
+    function updateReviewState() {
+        const text = document.getElementById('reviewText').value;
+        const currentLen = text.length;
+        const postBtn = document.getElementById('postBtn');
+        const charCountDiv = document.getElementById('charCount');
+
+        charCountDiv.innerHTML = `${currentLen}/<span id="limit-text" class="${currentLen > 1500 ? 'limit-reached' : ''}">1500</span>`;
+        postBtn.disabled = (currentLen > 1500);
+    }
+
+    function saveReview() {
+        const name = document.getElementById('reviewerName').value;
+        const text = document.getElementById('reviewText').value;
+        if(!name || !text || currentRating === 0) return alert("Please fill all fields!");
+
+        let reviews = JSON.parse(localStorage.getItem('kikiReviews') || '[]');
+        if(editingId !== null) {
+            reviews[editingId] = { name, text, rating: currentRating };
+            editingId = null;
+        } else {
+            reviews.push({ name, text, rating: currentRating });
+        }
+        localStorage.setItem('kikiReviews', JSON.stringify(reviews));
+        resetForm();
+        loadReviews();
+    }
+
+    function loadReviews() {
+        const list = document.getElementById('review-list');
+        const reviews = JSON.parse(localStorage.getItem('kikiReviews') || '[]');
+        if(reviews.length === 0) {
+            list.innerHTML = '<p style="text-align:center; color:#777;">No reviews yet. Be the first!</p>';
+            return;
+        }
+        list.innerHTML = reviews.map((r, idx) => `
+            <div class="review-card">
+                <h4>${r.name}</h4>
+                <div class="stars">${'<i class="fas fa-star"></i>'.repeat(r.rating)}</div>
+                <p>${r.text}</p>
+                <div class="actions">
+                    <button class="action-btn edit-btn" onclick="editReview(${idx})">Edit</button>
+                    <button class="action-btn delete-btn" onclick="deleteReview(${idx})">Delete</button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function deleteReview(idx) {
+        let reviews = JSON.parse(localStorage.getItem('kikiReviews'));
+        reviews.splice(idx, 1);
+        localStorage.setItem('kikiReviews', JSON.stringify(reviews));
+        loadReviews();
+    }
+
+    function editReview(idx) {
+        let reviews = JSON.parse(localStorage.getItem('kikiReviews'));
+        const r = reviews[idx];
+        document.getElementById('reviewerName').value = r.name;
+        document.getElementById('reviewText').value = r.text;
+        currentRating = r.rating;
+        editingId = idx;
+        document.querySelectorAll('#star-input i').forEach(s => {
+            s.classList.toggle('active', parseInt(s.dataset.val) <= currentRating);
+        });
+        updateReviewState();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function resetForm() {
+        document.getElementById('reviewerName').value = '';
+        document.getElementById('reviewText').value = '';
+        currentRating = 0;
+        document.querySelectorAll('#star-input i').forEach(s => s.classList.remove('active'));
+        updateReviewState();
+        editingId = null;
+    }
+
+    loadReviews();
+</script>
+</body>
+</html>

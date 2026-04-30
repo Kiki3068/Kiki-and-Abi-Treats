@@ -1,0 +1,50 @@
+:root {
+    --orange: #FF8C00;
+    --black: #1a1a1a;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+/* --- THE NAVIGATION BAR (Same on all pages) --- */
+nav {
+    background-color: var(--black);
+    color: white;
+    padding: 20px 5%; /* Keep this padding exactly the same */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 40px; /* Fixing the height prevents the "jump" effect */
+}
+
+.logo {
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+.logo span {
+    color: var(--orange);
+}
+
+.nav-links {
+    display: flex;
+    gap: 25px;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    padding-bottom: 5px;
+    border-bottom: 3px solid transparent;
+    transition: 0.3s ease;
+}
+
+/* THE UNDERLINE: This stays the same design on both pages */
+.nav-links a.active {
+    border-bottom: 3px solid var(--orange);
+    color: var(--orange);
+}

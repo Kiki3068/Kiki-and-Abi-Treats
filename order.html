@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu | Kiki & Abi’s Treats</title>
+    <style>
+        :root { --orange: #FF8C00; --black: #1a1a1a; --light-grey: #f4f4f4; }
+        
+        /* General Layout */
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; background: #fff; color: #333; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+        
+        /* Navigation Bar */
+        nav { 
+            background: var(--black); color: white; padding: 15px 5%; 
+            display: flex; justify-content: space-between; align-items: center; 
+            z-index: 1000; position: relative; border-bottom: 2px solid var(--orange);
+        }
+        .logo { font-size: 1.4rem; font-weight: bold; }
+        .logo span { color: var(--orange); }
+        
+        .nav-links { display: flex; gap: 20px; }
+        .nav-links a { 
+            color: white; 
+            text-decoration: none; 
+            font-weight: 500; 
+            font-size: 0.9rem; 
+            padding-bottom: 5px;
+            border-bottom: 3px solid transparent; 
+            transition: 0.3s;
+        }
+
+        /* The Orange Line for the Menu Page */
+        .nav-links a.active { 
+            border-bottom: 3px solid var(--orange); 
+            color: var(--orange); 
+        }
+        .nav-links a:hover { color: var(--orange); }
+
+        /* Dashboard Workspace */
+        .main-content { display: flex; flex: 1; overflow: hidden; }
+
+        /* Left/Middle: Menu Section */
+        .menu-section { flex: 3; padding: 25px; overflow-y: auto; }
+        .controls { background: white; padding-bottom: 20px; position: sticky; top: 0; z-index: 10; }
+        .search-box { width: 100%; max-width: 350px; padding: 10px 20px; border: 2px solid #eee; border-radius: 50px; outline: none; margin-bottom: 15px; }
+        
+        .filter-nav { display: flex; gap: 8px; flex-wrap: wrap; }
+        .filter-btn { background: white; border: 1.5px solid var(--orange); color: var(--orange); padding: 6px 15px; cursor: pointer; border-radius: 30px; font-weight: bold; font-size: 0.8rem; transition: 0.3s; }
+        .filter-btn.active { background: var(--orange); color: white; }
+
+        /* Menu Grid and Cards */
+        .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-top: 10px; }
+        .card { border: 1px solid #eee; border-radius: 12px; overflow: hidden; padding-bottom: 15px; text-align: center; background: #fff; transition: 0.3s; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .card img { width: 100%; height: 160px; object-fit: cover; }
+        .card h3 { font-size: 1rem; margin: 12px 5px 5px; font-weight: bold; }
+        .card p { font-size: 0.8rem; color: #666; padding: 0 15px; margin-bottom: 12px; min-height: 40px; line-height: 1.4; }
+        .price { color: var(--orange); font-weight: 800; display: block; margin-bottom: 12px; font-size: 1.1rem; }
+        
+        .add-btn { background: var(--black); color: white; border: none; padding: 10px; border-radius: 8px; cursor: pointer; width: 85%; font-weight: bold; transition: 0.3s; }
+        .add-btn:hover { background: var(--orange); }
+
+        /* Right Side: Cart Sidebar */
+        .cart-sidebar { 
+            flex: 1; min-width: 320px; background: var(--light-grey); 
+            padding: 25px; display: flex; flex-direction: column; 
+            border-left: 1px solid #ddd;
+        }
+        .cart-sidebar h2 { margin-top: 0; font-size: 1.4rem; border-bottom: 2px solid var(--orange); padding-bottom: 10px; margin-bottom: 20px; }
+        #cart-items { flex: 1; overflow-y: auto; }
+        
+        .cart-item { background: white; padding: 12px; border-radius: 8px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; font-size: 0.9rem; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .remove-item { color: #ff4d4d; border: none; background: none; font-size: 1.3rem; cursor: pointer; font-weight: bold; }
+
+        /* Cart Footer */
+        .cart-footer { padding-top: 20px; border-top: 2px solid #ccc; }
+        .total-row { display: flex; justify-content: space-between; font-size: 1.3rem; font-weight: bold; margin-bottom: 20px; }
+        .whatsapp-order-btn { background: #25D366; color: white; border: none; width: 100%; padding: 15px; border-radius: 12px; font-weight: bold; cursor: pointer; font-size: 1rem; transition: 0.3s; }
+        .whatsapp-order-btn:hover { background: #128C7E; transform: scale(1.02); }
+
+        /* Responsive Settings */
+        @media (max-width: 900px) {
+            .main-content { flex-direction: column; overflow-y: auto; }
+            .menu-section { overflow-y: visible; }
+            .cart-sidebar { min-width: 100%; border-left: none; border-top: 3px solid var(--orange); }
+            body { overflow-y: auto; height: auto; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="logo">KIKI & ABI’S <span>TREATS</span></div>
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="allergy.html">Allergy Info</a>
+        <a href="reviews.html">Reviews</a>
+        <a href="order.html" class="active">Menu</a>
+    </div>
+</nav>
+
+<div class="main-content">
+    <div class="menu-section">
+        <div class="controls">
+            <input type="text" id="menuSearch" class="search-box" placeholder="Search delicious treats..." onkeyup="filterMenu()">
+            <div class="filter-nav">
+                <button class="filter-btn active" onclick="changeCategory('pastries', this)">Pastries</button>
+                <button class="filter-btn" onclick="changeCategory('meals', this)">Meals</button>
+                <button class="filter-btn" onclick="changeCategory('stews', this)">Stews</button>
+                <button class="filter-btn" onclick="changeCategory('soups', this)">Soups</button>
+                <button class="filter-btn" onclick="changeCategory('sides', this)">Sides</button>
+            </div>
+        </div>
+        <div id="menu-display" class="menu-grid"></div>
+    </div>
+
+    <div class="cart-sidebar">
+        <h2>Your Order</h2>
+        <div id="cart-items">
+            <p style="text-align: center; color: #888; margin-top: 30px;">Your cart is currently empty.</p>
+        </div>
+        
+        <div class="cart-footer">
+            <div class="total-row">
+                <span>Total:</span>
+                <span id="total-amount">£0</span>
+            </div>
+            <button class="whatsapp-order-btn" onclick="sendWhatsAppOrder()">Order via WhatsApp</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const menuItems = {
+        pastries: [
+            { name: "Moist Meat Pie", price: "£35", img: "Moist Meat Pie.jpg", desc: "" },
+            { name: "Crusty Chicken Pie", price: "£35", img: "Crusty Chicken Pie.jpg", desc: "" },
+            { name: "Flavourful Fish Roll", price: "£30", img: "Flavourful Fish Roll.jpg", desc: "" },
+            { name: "Soft Sausage Roll", price: "£35", img: "Soft Sausage Roll.jpg", desc: "" },
+            { name: "Elegant Egg Roll", price: "£30", img: "eggroll.jpg", desc: "" },
+            { name: "Puffy Puff-Puff", price: "£20", img: "Puffy Puff Puff.jpg", desc: "" },
+            { name: "Buttery Buns", price: "£20", img: "buns.jpg", desc: "" },
+            { name: "Bronzed Banana Bread", price: "£24", img: "Bronzed Banana Bread.jpg", desc: "" }
+        ],
+        meals: [
+            { name: "Beefy Beef Pasta", price: "£40", img: "Beefy Beef Pasta.jpg", desc: "" },
+            { name: "Jolly Jollof Rice", price: "£35", img: "Jolly Jollof Rice.jpg", desc: "" },
+            { name: "Filling Fried Rice", price: "£40", img: "Filling Fried Rice.jpg", desc: "" },
+            { name: "Stewy Stir-Fry Pasta", price: "£30", img: "Stewy Stir-Fry Pasta.jpg", desc: "" },
+            { name: "Nutritious Native Pasta", price: "£35", img: "native-pasta.jpg", desc: "" },
+            { name: "Nutritious Native Rice", price: "£45", img: "native-rice.jpg", desc: "" },
+            { name: "Aromatic Asun Rice", price: "£45", img: "Aromatic Asun Rice.jpg", desc: "" },
+            { name: "Jumbled Jambalaya Rice", price: "£45", img: "Jumbled Jambalaya Rice.jpg", desc: "" }
+        ],
+        stews: [
+            { name: "Tantalizing Turkey Stew", price: "£50", img: "Tantalizing Turkey Stew.jpg", desc: "" },
+            { name: "Native Naija Chicken Stew", price: "£50", img: "chicken-stew.jpg", desc: "" },
+            { name: "Hot Hake Fish Stew", price: "£45", img: "hake-fish.jpg", desc: "" },
+            { name: "Tantalizing Titus Fish Stew", price: "£40", img: "titus-stew.jpg", desc: "" },
+            { name: "Sweet Soft Chicken Stew", price: "£40", img: "soft-chicken.jpg", desc: "" }
+        ],
+        soups: [
+            { name: "Egusi Soup", price: "£45", img: "egusi.jpg", desc: "" },
+            { name: "Efo Riro", price: "£55", img: "Efo Riro.jpg", desc: "" },
+            { name: "Okro Soup", price: "£40", img: "okro.jpg", desc: "" },
+            { name: "Goat Meat Peppersoup", price: "£45", img: "peppersoup.jpg", desc: "" }
+        ],
+        sides: [
+            { name: "Gizdodo", price: "£35", img: "gizdodo.jpg", desc: "" },
+            { name: "Pepper Chicken Wings", price: "£15", img: "pepper-wings.jpg", desc: "" },
+            { name: "Spicy Suya Chicken Wings", price: "£15", img: "Spicy Suya Chicken Wings.jpg", desc: "" }
+        ]
+    };
+
+    let cart = [];
+    let currentCategory = 'pastries';
+
+    function changeCategory(cat, btn) {
+        currentCategory = cat;
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderMenu(menuItems[cat]);
+    }
+
+    function renderMenu(items) {
+        const display = document.getElementById('menu-display');
+        display.innerHTML = items.map(item => `
+            <div class="card">
+                <img src="${item.img}" onerror="this.src='https://via.placeholder.com/200x150?text=${item.name}'">
+                <div class="info">
+                    <h3>${item.name}</h3>
+                    <p>${item.desc || "Hand-crafted with love by Kiki & Abi."}</p>
+                    <span class="price">${item.price}</span>
+                    <button class="add-btn" onclick="addToCart('${item.name}', '${item.price}')">Add to Cart</button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function addToCart(name, price) {
+        cart.push({ name, price });
+        updateCart();
+    }
+
+    function removeFromCart(index) {
+        cart.splice(index, 1);
+        updateCart();
+    }
+
+    function updateCart() {
+        const cartList = document.getElementById('cart-items');
+        const totalAmount = document.getElementById('total-amount');
+        if (cart.length === 0) {
+            cartList.innerHTML = '<p style="text-align: center; color: #888; margin-top: 30px;">Your cart is currently empty.</p>';
+            totalAmount.innerText = "£0";
+            return;
+        }
+        let total = 0;
+        cartList.innerHTML = cart.map((item, index) => {
+            total += parseInt(item.price.replace('£', ''));
+            return `
+                <div class="cart-item">
+                    <span>${item.name}</span>
+                    <button class="remove-item" onclick="removeFromCart(${index})">&times;</button>
+                </div>`;
+        }).join('');
+        totalAmount.innerText = "£" + total;
+    }
+
+    function filterMenu() {
+        const term = document.getElementById('menuSearch').value.toLowerCase();
+        const filtered = menuItems[currentCategory].filter(i => i.name.toLowerCase().includes(term));
+        renderMenu(filtered);
+    }
+
+    function sendWhatsAppOrder() {
+        if (cart.length === 0) return alert("Please add some treats!");
+        const myPhone = "447882560270"; 
+        const itemList = cart.map(i => `- ${i.name} (${i.price})`).join('%0A');
+        const total = document.getElementById('total-amount').innerText;
+        const msg = `Hi Kiki %26 Abi's! I'd like to place an order:%0A%0A${itemList}%0A%0A*Total: ${total}*`;
+        window.open(`https://wa.me/${myPhone}?text=${msg}`, '_blank');
+    }
+
+    window.onload = () => renderMenu(menuItems.pastries);
+</script>
+
+</body>
+</html>
