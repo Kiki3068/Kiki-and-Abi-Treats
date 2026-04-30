@@ -1,0 +1,1 @@
+Welcome to Kiki's and Abi's Treats where you taste the tradition with food. We make many tantalizing meals from the Moist Meat Pie to the Jolly Jollof Rice. We take each order with care and love, taking time to do it well. We cater for events and do orders that are delivered straight to your door. Order now! 
